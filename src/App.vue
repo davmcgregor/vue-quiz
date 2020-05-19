@@ -20,9 +20,26 @@ export default {
   name: "App",
   components: {
     Header,
-    // eslint-disable-next-line prettier/prettier
     QuestionBox,
-    // eslint-disable-next-line prettier/prettier
+  },
+  data() {
+    return {
+      questions: [],
+    };
+  },
+  mounted: function () {
+    fetch(
+      "https://opentdb.com/api.php?amount=10&category=22&difficulty=hard&type=multiple",
+      {
+        method: "get",
+      }
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((jsonData) => {
+        this.questions = jsonData.results;
+      });
   },
 };
 </script>
